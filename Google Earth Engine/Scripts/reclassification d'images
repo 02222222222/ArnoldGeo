@@ -30,6 +30,6 @@ reclass_elev = reclass_elev.where(elevation.gte(500).and(elevation.lt(1000)), 3)
 reclass_elev = reclass_elev.where(elevation.gte(1000).and(elevation.lt(2000)), 4)
 reclass_elev = reclass_elev.where(elevation.gte(2000).and(elevation.lt(6000)), 5)
 
-Map.addLayer(reclass_elev, {min:0, max:5, palette:['white', 'blue', 'green', 'yellow', 'orange', 'red']}, 'Elevation reclassified')
+Map.addLayer(reclass_elev, {min:1, max:5, palette:['blue', 'green', 'yellow', 'orange', 'red']}, 'Elevation reclassified')
 
 //Map.addLayer(image_0, {min:0, max:1, palette:['white', 'green']}, 'Image 0')
