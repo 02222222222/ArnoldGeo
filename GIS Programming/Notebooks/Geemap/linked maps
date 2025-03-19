@@ -1,0 +1,55 @@
+# import packages
+import ee
+import geemap
+
+# ee.Authenticate()
+# ee.Initilize(project=project_id)
+
+# function to compute NDVI
+def compute_ndvi(img):
+    ndvi = img.normalizedDifference(['B8','B4']).rename('NDVI')
+    return img.addBands(ndvi)
+
+# function to compute NDWI
+def compute_ndwi(img):
+  ndwi = img.normalizedDifference(['B3', 'B8']).rename('NDWI')
+  return img.addBands(ndwi)
+
+# Load Sentinel-2 data
+image = (
+    ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+    .filterDate("2024-07-01", "2024-10-01")
+    .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 5))
+    .map(lambda img: img.divide(10000))
+    .map(compute_ndvi)
+    .map(compute_ndwi)
+    .median())
+
+# Define visualization parameters
+vis_params = [
+    {"bands": ["B4", "B3", "B2"], "min": 0, "max": 0.3, "gamma": 1.3},
+    {"bands": ["NDVI"], "min": 0, "max": 1, 'palette':['ffffff', 'ce7e45', 'df923d', 'f1b555', 'fcd163', '99b718', '74a901', '66a000', '529400', '3e8601', '207401', '056201', '004c00', '023b01', '012e01', '011d01', '011301']},
+    {"bands": ["B8", "B4", "B3"], "min": 0, "max": 0.3, "gamma": 1.3},
+    {"bands": ["NDWI"], "min": -1.0, "max": 1.0, 'palette': ['white', 'gray', '#0077BE']}
+]
+
+# Define labels
+labels = [
+    "Natural Color (B4/B3/B2)",
+    "NDVI (B8/B4)",
+    "Color Infrared (B8/B4/B3)",
+    "NDWI (B3/B8)"
+]
+
+# Create linked maps
+geemap.linked_maps(
+    rows=2,
+    cols=2,
+    height="300px",
+    center=[35.959111, -83.909463],
+    zoom=12,
+    ee_objects=[image],
+    vis_params=vis_params,
+    labels=labels,
+    label_position="topright",
+)
