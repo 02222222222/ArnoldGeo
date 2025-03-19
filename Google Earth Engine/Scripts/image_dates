@@ -1,0 +1,26 @@
+/// link: https://code.earthengine.google.com/186d4ce2b90d0b2a68d0f522a2e9ca8a
+
+var s2 = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+
+var ic = s2.filterDate('2025-03-18T23:50:00', '2025-03-19T23:59:59')
+           .sort('system:time_start', false);
+
+var ic_list = ic.toList(ic.size())
+var first = ic_list.get(0)
+var second = ic_list.get(1)
+var third = ic_list.get(2)
+print(ee.Date(ee.Image(first).get('system:time_start')))
+
+// print(ee.Algorithms.ObjectType(first))
+
+//print(second.get('system:time_start'))
+print('First', ee.Date(ic.first().get('system:time_start')))
+print('Second', ee.Date(ee.Image(second).get('system:time_start')))
+print('Third', ee.Date(ee.Image(third).get('system:time_start')))
+
+
+var f = ee.Date(ic.first().get('system:time_start'))
+var s = ee.Date(ee.Image(second).get('system:time_start'))
+
+print('Difference of acquisition time between first and second image', f.difference(s, 'second'))
+//print(f.subtract(s))
