@@ -1,1 +1,19 @@
+/// link: https://code.earthengine.google.com/66cfaf16be496b47a8c9aabb118bd0e5
 
+var elevation = ee.Image("USGS/SRTMGL1_003")
+print(elevation)
+
+// create the slope
+var slope = ee.Terrain.slope(elevation)
+print(slope)
+
+// country
+var gaul = ee.FeatureCollection("FAO/GAUL_SIMPLIFIED_500m/2015/level0")
+var cmr = gaul.filter(ee.Filter.eq('ADM0_NAME', 'Cameroon'))
+print('Cameroon', cmr)
+
+// add to the map
+Map.centerObject(cmr, 6)
+Map.addLayer(cmr, {color:'blue', fillColor:'black'}, 'Cameroon')
+Map.addLayer(elevation.clip(cmr), {min:60, max:3000, palette:['#008000', '#00A000', '#F0E68C', '#D2B48C', '#8B4513', '#FFFFFF']}/*'terrain'*/, 'Elevation')
+Map.addLayer(slope.clip(cmr), '', 'Slope', false)
