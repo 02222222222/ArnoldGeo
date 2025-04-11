@@ -1,0 +1,21 @@
+It is been a while i started my journey in OpenStreetMap but still now no diaries written, even though i have enough to share. So i decided to start, and the first topic i want to focus on is *Field Mapping*. 
+
+There are basically two types of mapping, remote and field. It is clear to understand what they mean. And it is important to say that they are complementary.
+
+* Remote mapping help us map features using satellites imageries, such as roads, buildings, waterways and so on, and
+* Field Mapping is mainly for informations that can't be retrieve from this images remotely, such as features small enough to be identify in satellite images like power poles, street lamp, or about qualitative informations like the surface of a road, the nature or the levels of a building, and so on.
+
+We will focus on Field Mapping.
+I want to illustrate a mobile app for field mapping, useful and very easy if you start mapping. It is called "Street Complete"
+Its name is meaningful enough, this app has been developed for street level mapping, based on tasks to complete.
+
+This is what it looks:
+![StreetComplete app]()
+
+The app displays places where data can be added to OpenStreetMap through the app as quest pins on a map.
+
+
+
+
+There is this amazing tool "StreetCompleteness" developed by that allow to know the level of completeness of StreetComplete quests for a given city. Here is the link [StreetCompleteness](https://streetcompleteness.haukauntrie.de/)
+
